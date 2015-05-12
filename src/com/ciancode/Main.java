@@ -6,17 +6,23 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Monitors monitors = new Monitors();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
-        for(GraphicsDevice curGs : gs)
-        {
-            DisplayMode dm = curGs.getDisplayMode();
-            System.out.println(dm.getWidth() + " x " + dm.getHeight());
+        int num_screens = gs.length;
+
+        for( int i=0; i<num_screens; i++ ){
+            GraphicsDevice gd = gs[i];
+            Rectangle screen = gd.getDefaultConfiguration().getBounds();
+
+            String name = gd.getIDstring();
+            System.out.println(name + ": " + screen.getWidth() + " * " + screen.getHeight() + " @ x = " + screen.getX());
+            System.out.println();
         }
 
         System.out.println("Starting...");
         Action action = new Action();
-
+        /*
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -41,6 +47,7 @@ public class Main {
         //action.set(input);
         action.execute();
         action.print_info();
+        //*/
 
     }
 }
