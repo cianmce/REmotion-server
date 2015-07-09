@@ -1,11 +1,20 @@
 package com.ciancode;
 
-import java.awt.*;
-
 public class Main {
 
     public static void main(String[] args) {
 
+        System.out.println("Starting...");
+
+        HTTPServer httpServer = new HTTPServer();
+        try {
+            httpServer.start();
+        } catch (Exception e) {
+            System.out.print("Error starting server... :(");
+        }
+
+
+        /*
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         for(GraphicsDevice curGs : gs)
@@ -41,6 +50,7 @@ public class Main {
         //action.set(input);
         action.execute();
         action.print_info();
+        */
 
     }
 }

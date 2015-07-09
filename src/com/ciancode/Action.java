@@ -108,6 +108,34 @@ public class Action {
         }
     }
 
+    public void press_ascii(char c){
+        charDown(c);
+        charUp(c);
+    }
+    public void press_ascii(int i){
+        char c = (char)i;
+        charDown(c);
+        charUp(c);
+    }
+    public boolean press_special_key(String key){
+        int code = get_special_keycode(key);
+        if(code<0){
+            return false;
+        }
+        robot.keyPress(code);
+        robot.keyRelease(code);
+        return true;
+    }
+    public int get_special_keycode(String key){
+        try {
+            return (int)KeyEvent.class.getDeclaredField("VK_"+key.toUpperCase()).get(null);
+        } catch (IllegalAccessException e) {
+            return -1;
+        } catch (NoSuchFieldException e) {
+            return -1;
+        }
+    }
+
     public void execute(){
         if( type==SPECIAL ) {
             System.out.println("Type:       " + "SPECIAL");
