@@ -13,8 +13,7 @@ import java.net.URI;
  * Created by cian on 31/05/15.
  */
 public class HTTPServer {
-
-
+    
         public void start() throws Exception {
             int port = 1234;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
