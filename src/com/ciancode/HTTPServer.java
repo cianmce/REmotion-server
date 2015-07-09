@@ -13,7 +13,7 @@ import java.net.URI;
  * Created by cian on 31/05/15.
  */
 public class HTTPServer {
-    
+
         public void start() throws Exception {
             int port = 1234;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -34,13 +34,16 @@ public class HTTPServer {
                 URI uri = t.getRequestURI();
                 String path = uri.getPath();
                 if(path.length()>route.length()) {
-                    char key = path.split(route)[1].charAt(0);
+                    String keys = path.split(route)[1];
                     // Check if code or char
-                    Action action = new Action();
-                    action.press_ascii(key);
+                    for(int i=0; i<keys.length(); i++){
+                        char key = keys.charAt(i);
+                        Action action = new Action();
+                        action.press_ascii(key);
+                    }
 
                     respond("OK", 200);
-                    System.out.println("Pressed: "+key);
+                    System.out.println("Pressed: "+keys);
                 }else{
                     respond("<h1>Error</h1>No Key provided", 400);
                 }
@@ -89,8 +92,9 @@ public class HTTPServer {
             public void handle(HttpExchange t) throws IOException {
                 URI uri = t.getRequestURI();
                 String path = uri.getPath();
-                String response = "<h1>Error</h1>Route: \""+path+"\" is not supported";
-
+                String response = "<h1>Error</h1>Route: \""+path+"\" is not supported. ";
+                response += "Try:<br><i>/press/key/</i>";
+                response += "<br>or<br><i>/press/char/</i>";
                 t.sendResponseHeaders(404, response.length());
                 System.out.println("Unsupported");
 
